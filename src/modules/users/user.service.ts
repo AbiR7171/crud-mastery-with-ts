@@ -4,9 +4,11 @@ import { User } from "./user.model";
 
 const createUserInToDB =  async(user:TUser)=>{
      
+
     const result = await User.create(user)
     
     return result;
+   
 
 }
 

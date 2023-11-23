@@ -7,7 +7,8 @@ const createUser = async(req:Request, res:Response) =>{
 
     console.log(user);
 
-
+     try{
+        
     const result = await userServices.createUserInToDB(user);
 
     res.status(200).json({
@@ -16,6 +17,14 @@ const createUser = async(req:Request, res:Response) =>{
         data:result
     })
 
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     }catch( err: any){
+         res.status(403).json({
+             success:false,
+             message: err.message,
+            data:err
+         })
+     }
     
 }
 
