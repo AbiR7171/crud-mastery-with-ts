@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import { Schema, model } from 'mongoose';
-import { TUser } from './user.interface';
+import {  Schema, model } from 'mongoose';
+import { TUser, UserMethods, UserModel } from './user.interface';
 import bcrypt from "bcrypt";
 import config from '../../config';
 
 
-const userSchema = new Schema<TUser>({
+const userSchema = new Schema<TUser, UserModel, UserMethods>({
      userId:{type:String, required:[true, "Id is required"], unique:true},
      username:{type:String, required:[true, "user is required"],unique:true},
      password:{type:String, required:[true, "password is required"]},
@@ -22,7 +22,17 @@ const userSchema = new Schema<TUser>({
          city:{type:String, required:[true, "city is required"]},
          country:{type:String, required:[true, "country is required"]}
      }
-})
+}) 
+
+
+  userSchema.methods.isUserExits = async function(id: string){
+            
+          const existingUser = await User.findOne({userId: id});
+
+          return existingUser
+  }
+
+
 
  userSchema.pre("save", async function (next){ 
 
@@ -37,12 +47,26 @@ const userSchema = new Schema<TUser>({
 
  userSchema.post("save", function(doc, next){
  
-      doc.password = "";
+
+
+  
+      doc.password = undefined;
+
       next()
  })
  
+//  userSchema.post("findOne", function(doc, next){
+ 
 
 
-export const User = model<TUser>('User', userSchema);
+  
+//       doc.password = undefined;
+
+//       next()
+//  })
+ 
+
+
+export const User = model<TUser, UserModel>('User', userSchema);
 
 
