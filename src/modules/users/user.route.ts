@@ -4,7 +4,7 @@ import { userController } from "./user.controller";
 const route = express.Router();
 
 
-route.post("/POST/api/users", userController.createUser)
+route.post("/api/users", userController.createUser)
 
 
 
