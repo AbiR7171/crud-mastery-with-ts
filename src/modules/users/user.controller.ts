@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import { userServices } from "./user.service";
 import { userValidationSchema } from "./user.validation";
@@ -91,13 +92,79 @@ const getSingleUser = async(req:Request, res:Response)=>{
             }
         })
      }
-}
+} 
+
+
+ const updateSingleUser = async(req:Request, res:Response)=>{
+
+    try{
+        const userId = req.params.userId;
+
+  
+        const {updateData} = req.body;
+
+
+       
+
+       
+  
+        const result = await userServices.updateSingleUserFromDB(userId, updateData);
+
+        console.log(result);
+        res.status(200).json({
+            "success": true,
+            "message": "User updated successfully!",
+            data:updateData
+        })
+  
+        return result
+    }catch(err: any){
+        res.status(403).json({
+            success:false,
+            message: err.message ||"something went wrong",
+            error:{
+                "code":404,
+                "description":err.message || "User not found!"
+            }
+        })
+    }
+
+ } 
+
+
+ const deleteUser = async (req:Request, res:Response) =>{
+
+        try{ 
+               const userId = req.params.userId
+               const result = await userServices.deletUserFromDB(userId)
+               res.status(200).json({
+                "success": true,
+                "message": "User deleted successfully!",
+                data: null
+            }) 
+
+
+        }catch(err: any){
+            res.status(403).json({
+                success:false,
+                message: err.message ||"something went wrong",
+                error:{
+                    "code":404,
+                    "description":err.message || "User not found!"
+                }
+            })
+        }
+ }
+
+
 
 
 export const userController = {
 
     createUser,
     getAllUser,
-    getSingleUser
+    getSingleUser,
+    updateSingleUser,
+    deleteUser
      
 }

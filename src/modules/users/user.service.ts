@@ -41,8 +41,77 @@ const getAllUserFromDB = async()=>{
  }
 
 
+ const updateSingleUserFromDB = async( id:string,updateData: TUser) =>{
+
+    const user = new User();
+
+    if(await user.isUserExits(id)){
+         
+              const result = await User.updateOne({userId:id},{
+                   $set:{
+                         userId: updateData.userId,
+                         username: updateData.username,
+                         password:updateData.password,
+                         fullName: {
+                             firstName:updateData.fullName.firstName,
+                             lastName:updateData.fullName.lastName
+                         },
+                         age:updateData.age,
+                         email:updateData.email,
+                         isActive:updateData.isActive,
+                         hobbies:updateData.hobbies,
+                         address:{
+                             street: updateData.address.street,
+                             city:updateData.address.city,
+                             country:updateData.address.country
+                         }
+
+                      
+
+                   }
+
+                   
+              }, {new:true, select: { password: 0}})
+              
+
+            
+
+              return result
+    }else{
+        throw new Error("User not found")
+   }
+
+
+
+
+
+ } 
+
+
+
+  const deletUserFromDB = async ( id: string) =>{
+
+        const user = new User() ;
+
+        if(await user.isUserExits(id)){
+
+            const result = await User.deleteOne({userId:id})
+
+            return result
+
+        }else{
+             throw new Error("User not found")
+        }
+  }
+
+
+  
+
+
 export const userServices = {
      createUserInToDB,
      getAllUserFromDB,
-     getSingleUserFromDB
+     getSingleUserFromDB,
+     updateSingleUserFromDB,
+     deletUserFromDB
 }

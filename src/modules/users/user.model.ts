@@ -44,6 +44,8 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
 
  })
 
+ 
+
 
  userSchema.post("save", function(doc, next){
  
@@ -54,17 +56,21 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
 
       next()
  })
- 
-//  userSchema.post("findOne", function(doc, next){
- 
 
 
-  
-//       doc.password = undefined;
 
-//       next()
+
+//  userSchema.post("updateOne", function(doc,next){
+
+//      this.updateOne({},{$unset:{password:1}} )
+
+//      next()
 //  })
+
+
+
  
+
 
 
 export const User = model<TUser, UserModel>('User', userSchema);
