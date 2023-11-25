@@ -1,6 +1,14 @@
 import z from "zod"
 
 
+
+
+const ordersValidationSchema =  z.object({
+     productName: z.string().min(1, {message:"ProductName is required"}),
+     price: z.number().min(1, {message:"price is required"}),
+      quantity: z.number().min(1, {message:"quantity is required"})
+})
+
 export const userValidationSchema = z.object({
     userId: z.string().min(1, {message:"user id is required"}),
     username:z.string().min(1, {message:"username id is required"}),
@@ -17,5 +25,6 @@ export const userValidationSchema = z.object({
          street:z.string().min(1, {message:"street id is required"}),
          city:z.string().min(1, {message:"City id is required"}),
          country:z.string().min(1, {message:"Country id is required"})
-    })
+    }),
+    orders:z.array(ordersValidationSchema)
 })

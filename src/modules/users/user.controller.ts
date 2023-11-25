@@ -136,7 +136,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
         try{ 
                const userId = req.params.userId
-               const result = await userServices.deletUserFromDB(userId)
+               const result = await userServices.deleteUserFromDB(userId)
                res.status(200).json({
                 "success": true,
                 "message": "User deleted successfully!",
@@ -157,6 +157,84 @@ const getSingleUser = async(req:Request, res:Response)=>{
  }
 
 
+ const addOrder = async(req:Request, res:Response)=>{
+
+         try{
+            const userId =   req.params.userId;
+            const orders = req.body;
+ 
+            const result = await userServices.createOrderFromDB(userId, orders);
+            res.status(200).json({
+                "success": true,
+                "message": "Order Created successfully!",
+                data: null
+            })
+         }catch(err: any){
+            res.status(403).json({
+                success:false,
+                message: err.message ||"something went wrong",
+                error:{
+                    "code":404,
+                    "description":err.message || "User not found!"
+                }
+            })
+         }
+
+         
+         
+ }
+
+  
+ const getAllOrderFromSingleUser = async(req:Request, res:Response) =>{
+
+         try{
+                 const userId = req.params.userId;
+                 const result = await userServices.allOrderOfSingleUserInDB(userId);
+
+                 res.status(200).json({
+                    "success": true,
+                    "message": "Order Created successfully!",
+                    data: result
+                })
+         }catch(err: any){
+            res.status(403).json({
+                success:false,
+                message: err.message ||"something went wrong",
+                error:{
+                    "code":404,
+                    "description":err.message || "User not found!"
+                }
+            })
+         }
+
+ } 
+
+
+ const calculateTotalPriceOfSingleUser = async(req:Request, res:Response) =>{
+
+        try{
+             const userId = req.params.userId;
+
+             const result = await  userServices.calculateTotalPriceOfSingleUserInDB(userId)
+             res.status(200).json({
+                "success": true,
+                "message": "Total price calculated successfully!",
+                 data: result
+            })
+        }catch(err: any){
+            res.status(403).json({
+                success:false,
+                message: err.message ||"something went wrong",
+                error:{
+                    "code":404,
+                    "description":err.message || "User not found!"
+                }
+            })
+         }
+
+ } 
+
+
 
 
 export const userController = {
@@ -165,6 +243,9 @@ export const userController = {
     getAllUser,
     getSingleUser,
     updateSingleUser,
-    deleteUser
+    deleteUser,
+    addOrder,
+    getAllOrderFromSingleUser,
+    calculateTotalPriceOfSingleUser
      
 }

@@ -21,8 +21,15 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
          street:{type:String, required:[true, "street is required"]},
          city:{type:String, required:[true, "city is required"]},
          country:{type:String, required:[true, "country is required"]}
-     }
-}) 
+     },
+     orders:[ { productName:{type:String, required:[true, "productName is required"]},
+               price:{type:Number, required:[true, "price is required"]},
+               quantity:{type:Number, required:[true, "quantity is required"]} 
+     }]
+})  
+
+
+
 
 
   userSchema.methods.isUserExits = async function(id: string){

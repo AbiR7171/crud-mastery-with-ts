@@ -1,4 +1,4 @@
-import { TUser } from "./user.interface";
+import { TOrder, TUser } from "./user.interface";
 import { User } from "./user.model";
 
 
@@ -45,9 +45,12 @@ const getAllUserFromDB = async()=>{
 
     const user = new User();
 
-    if(await user.isUserExits(id)){
+    if(await user.isUserExits(id)){ 
+
+
+           const user = await User.findOne({userId:id}).select("-password")
          
-              const result = await User.updateOne({userId:id},{
+              const result = await User.updateOne({user},{
                    $set:{
                          userId: updateData.userId,
                          username: updateData.username,
@@ -71,7 +74,7 @@ const getAllUserFromDB = async()=>{
                    }
 
                    
-              }, {new:true, select: { password: 0}})
+              })
               
 
             
@@ -89,7 +92,7 @@ const getAllUserFromDB = async()=>{
 
 
 
-  const deletUserFromDB = async ( id: string) =>{
+  const deleteUserFromDB = async ( id: string) =>{
 
         const user = new User() ;
 
@@ -105,7 +108,79 @@ const getAllUserFromDB = async()=>{
   }
 
 
-  
+  const createOrderFromDB = async(id:string, orders: TOrder) =>{
+
+          const user = new User()
+
+          if(await user.isUserExits(id)){ 
+          
+             const result = await User.updateOne(
+                {userId: id},
+                {$push: {orders: orders}}
+             )
+
+             return result
+          
+              
+          }else{
+             throw new Error("User not found")
+          }
+  }
+
+
+  const allOrderOfSingleUserInDB = async (id:string) =>{
+     
+        
+    const user = new User() 
+    if(await user.isUserExits(id)){
+        
+        
+       const result = await User.findOne({userId:id}, {orders:1, _id:0})
+        
+       return result
+
+    }else{
+        throw new Error("User not found")
+     }
+  }
+
+
+
+
+  const calculateTotalPriceOfSingleUserInDB = async (id:string) =>{
+     
+    const user = new User() 
+    if(await user.isUserExits(id)){
+        
+        
+       const result = await User.aggregate([
+               {$match: {userId:id}},
+               {$unwind: "$orders"},
+               {
+                 $group: {
+                      _id: null,
+                      totalPrice: {$sum:{$multiply:["$orders.quantity", "$orders.price"]}}
+                 }
+               },
+               {$project:  {totalPrice:1, _id:0}}
+       ]) 
+
+       console.log(result);
+
+
+
+
+     
+        
+       return result[0]
+
+    }else{
+        throw new Error("User not found")
+     }
+     
+  }
+
+
 
 
 export const userServices = {
@@ -113,5 +188,8 @@ export const userServices = {
      getAllUserFromDB,
      getSingleUserFromDB,
      updateSingleUserFromDB,
-     deletUserFromDB
+     deleteUserFromDB,
+     createOrderFromDB,
+     allOrderOfSingleUserInDB,
+     calculateTotalPriceOfSingleUserInDB
 }
