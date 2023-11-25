@@ -2,7 +2,7 @@
   "name": "mogoose-express-crud-mastery",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "lint": "eslint src --ignore-path .eslintignore --ext .ts",
