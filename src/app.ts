@@ -13,9 +13,9 @@ app.use("/api", userRoute)
 
 app.get('/', (req:Request, res: Response) => {
 
-  const a = 0;
-  
-  res.send(a)
+
+   res.send("Hello word")
+
 })
 
 
