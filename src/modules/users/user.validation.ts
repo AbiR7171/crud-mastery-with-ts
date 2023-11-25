@@ -26,5 +26,5 @@ export const userValidationSchema = z.object({
          city:z.string().min(1, {message:"City id is required"}),
          country:z.string().min(1, {message:"Country id is required"})
     }),
-    orders:z.array(ordersValidationSchema)
+    orders:z.optional(z.array(ordersValidationSchema))
 })

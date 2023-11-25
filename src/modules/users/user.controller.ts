@@ -15,7 +15,7 @@ const createUser = async(req:Request, res:Response) =>{
 
         const validateData =  userValidationSchema.parse(userData);
 
-        console.log(validateData);
+       
         
         const result = await userServices.createUserInToDB(validateData);
 
@@ -28,7 +28,7 @@ const createUser = async(req:Request, res:Response) =>{
      // eslint-disable-next-line @typescript-eslint/no-explicit-any
      }catch( err: any){ 
 
-        console.log(err);
+       
          res.status(403).json({
              success:false,
              message:err.message ||"something went wrong",
@@ -56,7 +56,7 @@ const getAllUser = async(req:Request, res:Response) =>{
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }catch(err: any){
         
-        console.log(err);
+     
         res.status(403).json({
             success:false,
             message:"something went wrong",
@@ -82,7 +82,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
          // eslint-disable-next-line @typescript-eslint/no-explicit-any
      }catch(err: any){
-         console.log(err);
+         
          res.status(403).json({
             success:false,
             message: err.message ||"something went wrong",
@@ -110,7 +110,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
   
         const result = await userServices.updateSingleUserFromDB(userId, updateData);
 
-        console.log(result);
+    
         res.status(200).json({
             "success": true,
             "message": "User updated successfully!",
@@ -136,7 +136,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
         try{ 
                const userId = req.params.userId
-               const result = await userServices.deleteUserFromDB(userId)
+               await userServices.deleteUserFromDB(userId)
                res.status(200).json({
                 "success": true,
                 "message": "User deleted successfully!",
@@ -163,7 +163,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
             const userId =   req.params.userId;
             const orders = req.body;
  
-            const result = await userServices.createOrderFromDB(userId, orders);
+            await userServices.createOrderFromDB(userId, orders);
             res.status(200).json({
                 "success": true,
                 "message": "Order Created successfully!",

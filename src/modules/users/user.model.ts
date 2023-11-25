@@ -59,7 +59,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
 
 
   
-      doc.password = undefined;
+    doc.password = undefined;
 
       next()
  })

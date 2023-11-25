@@ -10,7 +10,9 @@ const createUserInToDB =  async(userData:TUser)=>{
          throw new Error('User Already Exists')
    }
 
-   const result = await user.save()
+   const result = await user.save();
+
+   
    
     return result;
    
@@ -165,7 +167,7 @@ const getAllUserFromDB = async()=>{
                {$project:  {totalPrice:1, _id:0}}
        ]) 
 
-       console.log(result);
+ 
 
 
 
