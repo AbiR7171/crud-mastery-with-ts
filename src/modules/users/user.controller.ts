@@ -11,7 +11,7 @@ const createUser = async(req:Request, res:Response) =>{
 
      try{
 
-        const { user: userData  } = req.body;
+        const  userData = req.body;
 
         const validateData =  userValidationSchema.parse(userData);
 
@@ -101,7 +101,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
         const userId = req.params.userId;
 
   
-        const {updateData} = req.body;
+        const updateData = req.body;
 
 
        
