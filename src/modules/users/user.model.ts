@@ -45,7 +45,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
 
       const user = this;
 
-      user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt))
+      user.password = await bcrypt.hash(user.password as string, Number(config.bcrypt_salt))
 
       next()
 
@@ -59,7 +59,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
 
 
   
-    doc.password = undefined;
+         doc.password = undefined;
 
       next()
  })
