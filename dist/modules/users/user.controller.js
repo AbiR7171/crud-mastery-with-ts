@@ -14,7 +14,7 @@ const user_service_1 = require("./user.service");
 const user_validation_1 = require("./user.validation");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user: userData } = req.body;
+        const userData = req.body;
         const validateData = user_validation_1.userValidationSchema.parse(userData);
         const result = yield user_service_1.userServices.createUserInToDB(validateData);
         res.status(200).json({
@@ -75,7 +75,7 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.params.userId;
-        const { updateData } = req.body;
+        const updateData = req.body;
         const result = yield user_service_1.userServices.updateSingleUserFromDB(userId, updateData);
         res.status(200).json({
             "success": true,

@@ -28,7 +28,7 @@ const getAllUserFromDB = async()=>{
 } 
 
 
- const getSingleUserFromDB = async(id: string) =>{
+ const getSingleUserFromDB = async(id: number) =>{
 
     const user = new User()
 
@@ -43,7 +43,7 @@ const getAllUserFromDB = async()=>{
  }
 
 
- const updateSingleUserFromDB = async( id:string,updateData: TUser) =>{
+ const updateSingleUserFromDB = async( id:number,updateData: TUser) =>{
 
     const user = new User();
 
@@ -94,7 +94,7 @@ const getAllUserFromDB = async()=>{
 
 
 
-  const deleteUserFromDB = async ( id: string) =>{
+  const deleteUserFromDB = async ( id: number) =>{
 
         const user = new User() ;
 
@@ -110,7 +110,7 @@ const getAllUserFromDB = async()=>{
   }
 
 
-  const createOrderFromDB = async(id:string, orders: TOrder) =>{
+  const createOrderFromDB = async(id: number, orders: TOrder) =>{
 
           const user = new User()
 
@@ -130,7 +130,7 @@ const getAllUserFromDB = async()=>{
   }
 
 
-  const allOrderOfSingleUserInDB = async (id:string) =>{
+  const allOrderOfSingleUserInDB = async (id:number) =>{
      
         
     const user = new User() 
@@ -149,7 +149,7 @@ const getAllUserFromDB = async()=>{
 
 
 
-  const calculateTotalPriceOfSingleUserInDB = async (id:string) =>{
+  const calculateTotalPriceOfSingleUserInDB = async (id:number) =>{
      
     const user = new User() 
     if(await user.isUserExits(id)){

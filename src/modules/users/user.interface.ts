@@ -35,8 +35,9 @@ export type TUser = {
 
 
 export type UserMethods ={
-    isUserExits(id: string): Promise<TUser | null >
+    isUserExits(id: number): Promise<TUser | null >
 }
 
 
-export type UserModel = Model<TUser, Record<string, never>, UserMethods>
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type UserModel = Model<TUser, {}, UserMethods>

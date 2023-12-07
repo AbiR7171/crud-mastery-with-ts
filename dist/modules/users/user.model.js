@@ -18,7 +18,7 @@ const mongoose_1 = require("mongoose");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const config_1 = __importDefault(require("../../config"));
 const userSchema = new mongoose_1.Schema({
-    userId: { type: String, required: [true, "Id is required"], unique: true },
+    userId: { type: Number, required: [true, "Id is required"], unique: true },
     username: { type: String, required: [true, "user is required"], unique: true },
     password: { type: String, required: [true, "password is required"] },
     fullName: {
@@ -53,7 +53,7 @@ userSchema.pre("save", function (next) {
     });
 });
 userSchema.post("save", function (doc, next) {
-    //     doc.password = undefined;
+    doc.password = undefined;
     next();
 });
 //  userSchema.post("updateOne", function(doc,next){

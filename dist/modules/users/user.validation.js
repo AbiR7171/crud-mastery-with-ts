@@ -11,7 +11,7 @@ const ordersValidationSchema = zod_1.default.object({
     quantity: zod_1.default.number().min(1, { message: "quantity is required" })
 });
 exports.userValidationSchema = zod_1.default.object({
-    userId: zod_1.default.string().min(1, { message: "user id is required" }),
+    userId: zod_1.default.number().min(1, { message: "user id is required" }),
     username: zod_1.default.string().min(1, { message: "username id is required" }),
     password: zod_1.default.string().min(1, { message: "password id is required" }),
     fullName: zod_1.default.object({

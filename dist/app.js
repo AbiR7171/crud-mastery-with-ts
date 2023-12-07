@@ -11,7 +11,6 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/api", user_route_1.userRoute);
 app.get('/', (req, res) => {
-    const a = 0;
-    res.send(a);
+    res.send("Hello word");
 });
 exports.default = app;

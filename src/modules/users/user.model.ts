@@ -32,7 +32,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
 
 
 
-  userSchema.methods.isUserExits = async function(id: string){
+  userSchema.methods.isUserExits = async function(id: number){
             
           const existingUser = await User.findOne({userId: id});
 
