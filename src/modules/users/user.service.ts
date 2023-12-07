@@ -110,7 +110,7 @@ const getAllUserFromDB = async()=>{
   }
 
 
-  const createOrderFromDB = async(id: number, orders: TOrder) =>{
+  const createOrderFromDB = async(id:number, orders: TOrder) =>{
 
           const user = new User()
 

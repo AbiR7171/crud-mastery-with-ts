@@ -71,9 +71,11 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
      try{
 
-        const userId = req.params.userId
+        const userId = req.params.userId;
+
+        const pareId = parseInt(userId)
          
-        const result = await userServices.getSingleUserFromDB(userId) 
+        const result = await userServices.getSingleUserFromDB(pareId) 
         res.status(200).json({
             "success": true,
             "message": "User fetched successfully!",
@@ -99,6 +101,9 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
     try{
         const userId = req.params.userId;
+      
+
+        const pareId = parseInt(userId)
 
   
         const updateData = req.body;
@@ -108,7 +113,7 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
        
   
-        const result = await userServices.updateSingleUserFromDB(userId, updateData);
+        const result = await userServices.updateSingleUserFromDB(pareId, updateData);
 
     
         res.status(200).json({
@@ -135,8 +140,10 @@ const getSingleUser = async(req:Request, res:Response)=>{
  const deleteUser = async (req:Request, res:Response) =>{
 
         try{ 
-               const userId = req.params.userId
-               await userServices.deleteUserFromDB(userId)
+               const userId = req.params.userId;
+               const pareId = parseInt(userId)
+           
+               await userServices.deleteUserFromDB(pareId)
                res.status(200).json({
                 "success": true,
                 "message": "User deleted successfully!",
@@ -161,9 +168,10 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
          try{
             const userId =   req.params.userId;
+            const pareId = parseInt(userId)
             const orders = req.body;
  
-            await userServices.createOrderFromDB(userId, orders);
+            await userServices.createOrderFromDB(pareId, orders);
             res.status(200).json({
                 "success": true,
                 "message": "Order Created successfully!",
@@ -189,7 +197,8 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
          try{
                  const userId = req.params.userId;
-                 const result = await userServices.allOrderOfSingleUserInDB(userId);
+                 const pareId = parseInt(userId)
+                 const result = await userServices.allOrderOfSingleUserInDB(pareId);
 
                  res.status(200).json({
                     "success": true,
@@ -214,8 +223,9 @@ const getSingleUser = async(req:Request, res:Response)=>{
 
         try{
              const userId = req.params.userId;
+             const pareId = parseInt(userId)
 
-             const result = await  userServices.calculateTotalPriceOfSingleUserInDB(userId)
+             const result = await  userServices.calculateTotalPriceOfSingleUserInDB(pareId)
              res.status(200).json({
                 "success": true,
                 "message": "Total price calculated successfully!",
