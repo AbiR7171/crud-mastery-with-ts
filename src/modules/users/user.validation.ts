@@ -10,7 +10,7 @@ const ordersValidationSchema =  z.object({
 })
 
 export const userValidationSchema = z.object({
-    userId: z.string().min(1, {message:"user id is required"}),
+    userId: z.number().min(1, {message:"user id is required"}),
     username:z.string().min(1, {message:"username id is required"}),
     password:z.string().min(1, {message:"password id is required"}),
     fullName:z.object({

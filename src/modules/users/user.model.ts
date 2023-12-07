@@ -6,7 +6,7 @@ import config from '../../config';
 
 
 const userSchema = new Schema<TUser, UserModel, UserMethods>({
-     userId:{type:String, required:[true, "Id is required"], unique:true},
+     userId:{type:Number, required:[true, "Id is required"], unique:true},
      username:{type:String, required:[true, "user is required"],unique:true},
      password:{type:String, required:[true, "password is required"]},
      fullName: {
